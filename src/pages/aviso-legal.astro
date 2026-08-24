@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 
 const actualizado = '24 de agosto de 2026';
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
@@ -10,7 +11,7 @@ const actualizado = '24 de agosto de 2026';
 >
   <article class="shell legal">
     <header class="legal__head">
-      <a class="legal__volver" href="/">← Volver a la plantilla</a>
+      <a class="legal__volver" href={`${raiz}/`}>← Volver a la plantilla</a>
       <h1 class="legal__titulo">Aviso legal y términos de uso</h1>
       <p class="legal__fecha">Última actualización: {actualizado}</p>
     </header>
@@ -140,7 +141,7 @@ const actualizado = '24 de agosto de 2026';
     </section>
 
     <footer class="legal__pie">
-      <a class="btn btn--ghost" href="/">← Volver a la plantilla</a>
+      <a class="btn btn--ghost" href={`${raiz}/`}>← Volver a la plantilla</a>
       <p class="legal__firma">
         Hecho por
         <a href="https://cacharreo.dev" target="_blank" rel="noopener noreferrer">cacharreo.dev</a>

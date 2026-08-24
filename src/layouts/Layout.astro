@@ -7,6 +7,13 @@ interface Props {
   description?: string;
 }
 
+/**
+ * Raíz del sitio. Con dominio propio queda en ''; publicado en
+ * usuario.github.io/payment-plan queda en '/payment-plan'. Todos los enlaces
+ * internos cuelgan de aquí para que funcionen en ambos casos.
+ */
+const raiz = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const {
   title = 'Plan de Pagos — organiza tu crédito y exporta a Excel',
   description = 'Plantilla interactiva para diseñar tu plan de pagos: calcula la cuota, simula abonos extra, revisa si cabe en tu presupuesto y descarga todo en Excel.',
@@ -23,7 +30,7 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#d4522c" />
     <meta name="color-scheme" content="light" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${raiz}/favicon.svg`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -43,7 +50,7 @@ const {
 
     <header class="topbar">
       <div class="shell topbar__inner">
-        <a class="brand" href="/">
+        <a class="brand" href={`${raiz}/`}>
           <span class="brand__mark" aria-hidden="true">◐</span>
           <span>
             <span class="brand__name">Plan de Pagos</span>
@@ -52,11 +59,11 @@ const {
         </a>
 
         <nav class="topbar__nav" aria-label="Secciones">
-          <a class="navlink" href="/#credito">Crédito</a>
-          <a class="navlink" href="/#abonos">Abonos</a>
-          <a class="navlink" href="/#presupuesto">Presupuesto</a>
-          <a class="navlink" href="/#graficas">Gráficas</a>
-          <a class="navlink" href="/#tabla">Tabla</a>
+          <a class="navlink" href={`${raiz}/#credito`}>Crédito</a>
+          <a class="navlink" href={`${raiz}/#abonos`}>Abonos</a>
+          <a class="navlink" href={`${raiz}/#presupuesto`}>Presupuesto</a>
+          <a class="navlink" href={`${raiz}/#graficas`}>Gráficas</a>
+          <a class="navlink" href={`${raiz}/#tabla`}>Tabla</a>
         </nav>
       </div>
     </header>
@@ -69,7 +76,7 @@ const {
       <div class="shell footer__inner">
         <div class="footer__row">
           <span>Plan de Pagos · plantilla abierta para organizar tus créditos.</span>
-          <a class="footer__legal" href="/aviso-legal">Aviso legal y términos de uso</a>
+          <a class="footer__legal" href={`${raiz}/aviso-legal`}>Aviso legal y términos de uso</a>
         </div>
         <p class="footer__aviso">
           <strong>Herramienta educativa.</strong> No es asesoría financiera, legal ni tributaria, ni una
@@ -78,7 +85,7 @@ const {
           intereses de mora. Las cifras válidas son las de tu contrato y tu entidad financiera; ante
           cualquier diferencia, prevalecen ellas. Verifica antes de firmar o prepagar. El uso de esta
           herramienta y las decisiones que tomes con ella son de tu exclusiva responsabilidad.
-          <a href="/aviso-legal">Leer el aviso completo</a>.
+          <a href={`${raiz}/aviso-legal`}>Leer el aviso completo</a>.
         </p>
         <p class="footer__firma">
           Hecho por

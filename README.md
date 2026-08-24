@@ -106,6 +106,44 @@ src/
 scripts/verify.ts        suite de verificación (pnpm verify)
 ```
 
+## Publicar en GitHub Pages
+
+El sitio es estático, así que Pages lo sirve tal cual. El workflow está en
+`.github/workflows/deploy.yml` y se dispara en cada push a `main` (o a mano desde la
+pestaña **Actions**). Antes de publicar corre `check`, `audit`, `verify` y `build`: si
+alguno falla, no se despliega.
+
+**Activarlo una sola vez:** en el repo, *Settings → Pages → Build and deployment →
+Source: **GitHub Actions***. No hace falta rama `gh-pages` ni tocar nada más.
+
+### Rutas
+
+Astro necesita saber en qué URL vive el sitio, porque de eso dependen los enlaces internos
+y las rutas de los assets. El workflow lo inyecta con dos variables:
+
+| Dónde se publica | `SITE_URL` | `BASE_PATH` |
+|---|---|---|
+| `felipe112.github.io/payment-plan/` (por defecto) | `https://felipe112.github.io` | `/payment-plan` |
+| Dominio propio, p. ej. `plan.cacharreo.dev` | `https://plan.cacharreo.dev` | `/` |
+
+Todos los enlaces internos cuelgan de `import.meta.env.BASE_URL`, así que funcionan en
+ambos casos sin tocar el código. En local, sin variables, se construye en la raíz.
+
+**Para usar un dominio propio:** pon el dominio en *Settings → Pages → Custom domain*,
+crea `public/CNAME` con el dominio dentro, y cambia en el workflow `BASE_PATH` a `/` y
+`SITE_URL` a tu dominio.
+
+### Costos
+
+Para un repositorio **público**, todo esto es gratis y sin límite de minutos: los runners
+estándar de GitHub Actions no se cobran en repos públicos, y Pages tampoco. Los topes de
+Pages son de uso, no de dinero: 1 GB de sitio publicado y 100 GB de tráfico al mes (este
+sitio pesa unos pocos MB). Si el repo fuera **privado**, Pages exige plan de pago (Pro,
+Team o Enterprise) y Actions consume de la cuota mensual del plan.
+
+GitHub prohíbe usar Pages como hosting de un negocio o comercio electrónico. Una
+plantilla educativa y gratuita no entra en ese supuesto.
+
 ## Aviso
 
 Los cálculos son una estimación educativa bajo el sistema de amortización francés. Las
