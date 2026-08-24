@@ -1,11 +1,26 @@
+# --- Dependencias ---
 node_modules/
+.pnpm-store/
+
+# --- Salida de build ---
+# La genera GitHub Actions en cada despliegue; versionarla provoca conflictos
+# en cada build (los nombres llevan hash) y arriesga publicar algo desactualizado.
 dist/
 .astro/
-.DS_Store
-*.log
-.env
-.env.production
 
-# pnpm
-.pnpm-store/
+# --- Lienzo de diseño ---
+# El .html publicado lleva ~2,2 MB del editor incrustado y se regenera entero
+# en cada cambio. Las fuentes reales son los .dc.html y canvas.json, que sí van.
+design/*.html
+!design/*.dc.html
+# Copia extraída del lienzo ya publicado: material de trabajo, duplica lo anterior.
+design/live/
+
+# --- Sistema y locales ---
+.DS_Store
+Thumbs.db
+*.log
 .pnpm-debug.log*
+.env
+.env.*
+!.env.example
