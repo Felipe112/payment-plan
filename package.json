@@ -1,0 +1,41 @@
+{
+  "name": "payment-plan",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Plan de Pagos — plantilla interactiva para diseñar y exportar planes de amortización",
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=20.10",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "esbuild scripts/verify.ts --bundle --platform=node --format=esm --target=node20 --outfile=node_modules/.tmp/verify.mjs --external:exceljs && node node_modules/.tmp/verify.mjs",
+    "audit": "esbuild scripts/audit.ts --bundle --platform=node --format=esm --target=node20 --outfile=node_modules/.tmp/audit.mjs && node node_modules/.tmp/audit.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/react": "^4.2.1",
+    "astro": "^5.5.2",
+    "exceljs": "^4.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "esbuild": "^0.25.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

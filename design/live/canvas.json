@@ -1,0 +1,70 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 880,
+      "h": 1080,
+      "title": "Naranja firme"
+    },
+    {
+      "file": "PapelCalido.dc.html",
+      "x": 960,
+      "y": 0,
+      "w": 880,
+      "h": 1080,
+      "title": "Papel cálido"
+    },
+    {
+      "file": "ClaroLegible.dc.html",
+      "x": 1920,
+      "y": 0,
+      "w": 880,
+      "h": 1080,
+      "title": "Claro legible"
+    },
+    {
+      "file": "ActualOscuro.dc.html",
+      "x": 2880,
+      "y": 0,
+      "w": 880,
+      "h": 1080,
+      "title": "Actual (oscuro)"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "nota-naranja-firme",
+      "x": 0,
+      "y": -210,
+      "w": 380,
+      "text": "NARANJA FIRME\nEl naranja pasa a ser estructura: banda de marca sólida arriba, página en blanco cálido. Conserva el degradado del titular.\n\nA favor: es el mismo ADN de hoy, solo que en claro.\nEn contra: la banda es un compromiso fuerte; si mañana cambia la marca, cambia toda la cabecera."
+    },
+    {
+      "id": "nota-papel-calido",
+      "x": 960,
+      "y": -210,
+      "w": 380,
+      "text": "PAPEL CÁLIDO\nAire de documento financiero: papel crema, titular con serif (Literata), esquinas casi rectas, reglas finas. El naranja queda como acento.\n\nA favor: es el que más se lee como \"esto es serio\".\nEn contra: el color de marca casi desaparece; se parece menos a una app."
+    },
+    {
+      "id": "nota-claro-legible",
+      "x": 1920,
+      "y": -210,
+      "w": 380,
+      "text": "CLARO LEGIBLE\nPensado para ojos maduros: texto más grande (cuerpo 19px), contraste alto (casi negro sobre casi blanco), bordes de 2px, botones de 54px.\n\nA favor: el más fácil de leer y de tocar, sin lupa.\nEn contra: al bajar la decoración pierde personalidad; puede sentirse institucional."
+    },
+    {
+      "id": "nota-actual",
+      "x": 2880,
+      "y": -210,
+      "w": 380,
+      "text": "ACTUAL (OSCURO)\nReferencia, no propuesta: lo que ya está construido, para comparar de a de veras contra las tres opciones claras.\n\nEl oscuro no se va: seguiría disponible con el interruptor de tema."
+    }
+  ],
+  "launch": {
+    "view": "focused",
+    "file": "Main.dc.html"
+  }
+}

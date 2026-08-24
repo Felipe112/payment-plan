@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PaymentPlanApp from '../components/PaymentPlanApp';
+---
+
+<Layout>
+  <section class="shell hero">
+    <span class="hero__eyebrow">Plantilla de plan de pagos</span>
+    <h1 class="hero__title">
+      Pon tu crédito <em>de tu lado</em>: mira a dónde va cada cuota y termina antes.
+    </h1>
+    <p class="hero__lead">
+      Escribe el monto, la tasa y el plazo. Verás tu cuota real, cuánto se va en intereses,
+      si cabe en tu presupuesto y cuánto ahorras abonando de más. Cuando quede como lo necesitas,
+      descárgalo en Excel para llevarlo contigo.
+    </p>
+    <div class="hero__pills">
+      <span class="chip chip--brand">Cálculo al instante</span>
+      <span class="chip">Abonos extra y fecha final</span>
+      <span class="chip">Semáforo de presupuesto</span>
+      <span class="chip">Exporta a .xlsx</span>
+      <span class="chip">Tus datos no salen del navegador</span>
+    </div>
+  </section>
+
+  <div class="shell">
+    <PaymentPlanApp client:load />
+  </div>
+</Layout>

@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import '../styles/app.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Plan de Pagos — organiza tu crédito y exporta a Excel',
+  description = 'Plantilla interactiva para diseñar tu plan de pagos: calcula la cuota, simula abonos extra, revisa si cabe en tu presupuesto y descarga todo en Excel.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#d4522c" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;550;600;650;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+
+  </head>
+
+  <body>
+    <a href="#contenido" class="sr-only">Saltar al contenido</a>
+
+    <header class="topbar">
+      <div class="shell topbar__inner">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">◐</span>
+          <span>
+            <span class="brand__name">Plan de Pagos</span>
+            <span class="brand__tag">Tu crédito, bajo control</span>
+          </span>
+        </a>
+
+        <nav class="topbar__nav" aria-label="Secciones">
+          <a class="navlink" href="/#credito">Crédito</a>
+          <a class="navlink" href="/#abonos">Abonos</a>
+          <a class="navlink" href="/#presupuesto">Presupuesto</a>
+          <a class="navlink" href="/#graficas">Gráficas</a>
+          <a class="navlink" href="/#tabla">Tabla</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer__inner">
+        <div class="footer__row">
+          <span>Plan de Pagos · plantilla abierta para organizar tus créditos.</span>
+          <a class="footer__legal" href="/aviso-legal">Aviso legal y términos de uso</a>
+        </div>
+        <p class="footer__aviso">
+          <strong>Herramienta educativa.</strong> No es asesoría financiera, legal ni tributaria, ni una
+          oferta o aprobación de crédito. Los resultados son estimaciones basadas en el sistema de
+          amortización francés y no contemplan redondeos, tasas variables, seguros, comisiones ni
+          intereses de mora. Las cifras válidas son las de tu contrato y tu entidad financiera; ante
+          cualquier diferencia, prevalecen ellas. Verifica antes de firmar o prepagar. El uso de esta
+          herramienta y las decisiones que tomes con ella son de tu exclusiva responsabilidad.
+          <a href="/aviso-legal">Leer el aviso completo</a>.
+        </p>
+        <p class="footer__firma">
+          Hecho por
+          <a href="https://cacharreo.dev" target="_blank" rel="noopener noreferrer">cacharreo.dev</a>
+        </p>
+      </div>
+    </footer>
+
+  </body>
+</html>

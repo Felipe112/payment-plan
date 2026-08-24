@@ -1,0 +1,413 @@
+/* ==========================================================================
+   Plan de Pagos — sistema de diseño
+   Paleta cálida (terracota / ciruela / mostaza) validada para daltonismo.
+   ========================================================================== */
+
+:root {
+  /* --- Superficies --- */
+  --surface: #fdfbf7;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f6f1e8;
+  --surface-hover: #f3ece1;
+  --border: #e6dccb;
+  --border-strong: #d3c5ad;
+
+  /* --- Tinta --- */
+  --ink: #2e2620;
+  --ink-secondary: #5e5347;
+  --ink-muted: #756a5c; /* 5,3:1 sobre blanco — AA en etiquetas de 10-13px */
+  --ink-inverse: #fdfbf7;
+
+  /* --- Marca --- */
+  --brand: #d4522c;
+  --brand-strong: #b23f1f;
+  --brand-soft: #fbe7de;
+  --brand-softer: #fdf3ee;
+  --brand-ink: #8c3115;
+  /* Fondo de los botones sólidos: el naranja mínimo que da 4,95:1 con texto blanco */
+  --brand-cta: #c2481f;
+  --brand-cta-ink: #ffffff;
+
+  --plum: #7b3fa0;
+  --plum-strong: #62307f;
+  --plum-soft: #f0e6f7;
+
+  --gold: #b98a10;
+  --gold-strong: #8a6708; /* 4,6:1 sobre gold-soft */
+  --gold-soft: #fbf1d9;
+
+  /* --- Rampa de sección ---
+     El degradado del titular (terracota -> mostaza -> ciruela) muestreado en
+     6 pasos, interpolando en OKLab para que los intermedios no se embarren.
+     Es la única fuente de color de sección: la usan el borde de cada tarjeta,
+     su icono y los puntos de las píldoras del hero. */
+  --rampa-1: #d4522c;
+  --rampa-2: #cb6a25;
+  --rampa-3: #c17e1b;
+  --rampa-4: #af8240;
+  --rampa-5: #93657b;
+  --rampa-6: #7b3fa0;
+
+  /* --- Series de datos (validadas: ΔE normal 25.4, CVD 22.9) --- */
+  --series-1: #d4522c; /* capital  */
+  --series-2: #7b3fa0; /* interés  */
+  --series-3: #b98a10; /* extras   */
+
+  /* --- Estado --- */
+  --ok: #43734a; /* 4,8:1 sobre ok-soft */
+  --ok-soft: #e8f1e6;
+  --warn: #b98a10;
+  --warn-soft: #fbf1d9;
+  --danger: #c0392b;
+  --danger-soft: #fbe6e3;
+
+  /* --- Forma y movimiento --- */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgb(60 40 20 / 0.06);
+  --shadow: 0 2px 4px rgb(60 40 20 / 0.05), 0 8px 24px -12px rgb(60 40 20 / 0.14);
+  --shadow-lg: 0 4px 8px rgb(60 40 20 / 0.06), 0 24px 48px -20px rgb(60 40 20 / 0.22);
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-num: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --max-w: 1220px;
+}
+
+:root {
+  /* La plantilla es solo clara: fija el esquema para que el navegador
+     no oscurezca controles nativos (select, input[type=month]). */
+  color-scheme: light;
+}
+
+/* --- Reset ligero --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(60rem 34rem at 12% -12%, color-mix(in oklab, var(--brand) 13%, transparent), transparent 62%),
+    radial-gradient(52rem 30rem at 96% 2%, color-mix(in oklab, var(--plum) 11%, transparent), transparent 60%),
+    radial-gradient(46rem 26rem at 50% 108%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 62%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  font-weight: 650;
+}
+
+p { margin: 0; }
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:where(a) {
+  color: var(--brand-ink);
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--brand-soft);
+  color: var(--brand-ink);
+}
+
+/* --- Layout --- */
+.shell {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.6vw, 2rem);
+}
+
+/* --- Tarjetas --- */
+.card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  /* --paso lo fija cada sección; sin él la tarjeta queda neutra */
+  border-top: 3px solid var(--paso, var(--border));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: clamp(1.15rem, 2.6vw, 1.75rem);
+  /* La cabecera es sticky: sin este margen el ancla deja el título debajo de ella. */
+  scroll-margin-top: 5.25rem;
+}
+
+.card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1.15rem;
+}
+
+.card__icon {
+  flex: none;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--paso, var(--brand)) 14%, var(--surface-raised));
+  color: var(--paso, var(--brand));
+}
+
+.card__title {
+  font-size: 1.06rem;
+  font-weight: 650;
+}
+
+.card__sub {
+  font-size: 0.83rem;
+  color: var(--ink-muted);
+  margin-top: 0.15rem;
+}
+
+/* --- Formulario --- */
+.grid-fields {
+  display: grid;
+  gap: 0.95rem 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.34rem;
+  min-width: 0;
+}
+
+.field__label {
+  font-size: 0.79rem;
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  color: var(--ink-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.field__hint {
+  font-size: 0.73rem;
+  color: var(--ink-muted);
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap__affix {
+  position: absolute;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  pointer-events: none;
+  font-family: var(--font-num);
+}
+
+.input-wrap__affix--left { left: 0.75rem; }
+.input-wrap__affix--right { right: 0.75rem; }
+
+.input {
+  width: 100%;
+  padding: 0.62rem 0.8rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-num);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.16s var(--ease), box-shadow 0.16s var(--ease), background 0.16s var(--ease);
+}
+
+.input--pad-left { padding-left: 1.65rem; }
+.input--pad-right { padding-right: 2.4rem; }
+
+.input:hover:not(:focus) { border-color: var(--border-strong); }
+
+.input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3.5px color-mix(in oklab, var(--brand) 20%, transparent);
+}
+
+select.input {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 1rem center, right 0.7rem center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2rem;
+}
+
+/* --- Segmentos (radio group) --- */
+.segments {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  flex-wrap: wrap;
+  /* Hundido: la pista se lee por debajo de la pastilla elegida */
+  box-shadow: inset 0 1px 2px rgb(60 40 20 / 0.06);
+}
+
+.segment {
+  flex: 1 1 auto;
+  border: 1.5px solid transparent;
+  background: transparent;
+  border-radius: 9px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease),
+    box-shadow 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease);
+}
+
+.segment:hover:not([aria-pressed='true']) {
+  background: var(--surface-raised);
+  border-color: var(--border);
+  color: var(--ink);
+}
+
+.segment:active { transform: translateY(1px); }
+
+/* Elegido: relleno sólido de marca. Es el único estado que el ojo
+   distingue de un vistazo; el blanco sobre crema no se veía. */
+.segment[aria-pressed='true'] {
+  background: var(--brand-cta);
+  border-color: var(--brand-strong);
+  color: var(--brand-cta-ink);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14), 0 6px 14px -8px var(--brand-cta);
+}
+
+.segment[aria-pressed='true']:hover { background: var(--brand-strong); }
+
+/* --- Botones --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.62rem 1.05rem;
+  border-radius: 11px;
+  border: 1.5px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.14s var(--ease), background 0.16s var(--ease), box-shadow 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn--primary {
+  background: var(--brand-cta);
+  color: var(--brand-cta-ink);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 8px 20px -10px var(--brand);
+}
+.btn--primary:hover:not(:disabled) { background: var(--brand-strong); }
+
+.btn--ghost {
+  background: var(--surface-raised);
+  border-color: var(--border-strong);
+  color: var(--ink-secondary);
+}
+.btn--ghost:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--brand);
+  color: var(--ink);
+}
+
+.btn--quiet {
+  background: transparent;
+  color: var(--ink-muted);
+  padding: 0.35rem 0.55rem;
+  font-size: 0.82rem;
+}
+.btn--quiet:hover:not(:disabled) { background: var(--surface-hover); color: var(--ink); }
+
+.btn--lg { padding: 0.82rem 1.5rem; font-size: 1rem; }
+
+/* --- Chips / etiquetas --- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--surface-sunken);
+  color: var(--ink-secondary);
+  border: 1px solid var(--border);
+}
+
+.chip--ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.chip--warn { background: var(--warn-soft); color: var(--gold-strong); border-color: transparent; }
+.chip--danger { background: var(--danger-soft); color: var(--danger); border-color: transparent; }
+.chip--brand { background: var(--brand-soft); color: var(--brand-ink); border-color: transparent; }
+
+/* --- Utilidades --- */
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-muted); }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
