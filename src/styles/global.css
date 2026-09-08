@@ -166,6 +166,12 @@ button, input, select, textarea {
   scroll-margin-top: 5.25rem;
 }
 
+/* En móvil el nav de secciones se ve (ver .topbar__nav abajo) y la topbar
+   ocupa dos filas: hace falta más aire para que el título no quede tapado. */
+@media (max-width: 780px) {
+  .card { scroll-margin-top: 7.5rem; }
+}
+
 .card__head {
   display: flex;
   align-items: flex-start;
@@ -313,6 +319,13 @@ select.input {
 }
 
 .segment:active { transform: translateY(1px); }
+
+/* En pantallas angostas "white-space: nowrap" desborda etiquetas largas
+   (p. ej. "Reducir la cuota"); se deja envolver y, si no alcanza, se apila. */
+@media (max-width: 480px) {
+  .segments { flex-direction: column; }
+  .segment { white-space: normal; text-align: left; }
+}
 
 /* Elegido: relleno sólido de marca. Es el único estado que el ojo
    distingue de un vistazo; el blanco sobre crema no se veía. */

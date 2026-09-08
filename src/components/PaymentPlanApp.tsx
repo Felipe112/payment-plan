@@ -8,6 +8,7 @@ import {
 } from '../lib/format';
 import { AnualChart, SaldoChart } from './Charts';
 import { PlanTable } from './PlanTable';
+import { TourGuide } from './TourGuide';
 import { Card, MonthField, NumberField, SelectField, Segmented, StatTile, TextField } from './ui';
 
 const CLAVE = 'plan-de-pagos:v1';
@@ -194,8 +195,10 @@ export default function PaymentPlanApp() {
 
   return (
     <div className="stack app">
+      <TourGuide />
+
       {/* ---------------- Resumen pegajoso ---------------- */}
-      <div className="resumen">
+      <div className="resumen" id="resumen">
         <div className="resumen__hero">
           <span className="resumen__label">
             {planVisible.cuotaVariable ? 'Tu primera cuota' : 'Tu cuota mensual'}
